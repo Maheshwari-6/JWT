@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(245, 203, 98);
+}
+
+.container-div{
+    width: 90%;
+    margin: 20px auto;
+}
+
+.container-div input{
+    width: 50%;
+    margin: 10px;
+}
+
+.login-container{
+    display:flex;
+    justify-content: space-between;
+}
