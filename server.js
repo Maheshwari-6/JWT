@@ -7,6 +7,7 @@ const app = express();
 
 //Set EJS as a view engine
 app.set('view engine', 'ejs');
+app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
 //Use CSS,JS

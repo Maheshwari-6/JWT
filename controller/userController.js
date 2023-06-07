@@ -4,9 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const signUp = async (req, res) => {
     //Check if the user is already in the DB 
-    let exictedUser = await userModel.findOne({email: req.body.email});
+    let existedUser = await userModel.findOne({email: req.body.email});
 
-    if(exictedUser) {
+    if(existedUser) {
         res.render('signin', {
             error: "user exist"
         })
@@ -21,8 +21,8 @@ const signUp = async (req, res) => {
         let newUser = new userModel(userObj);
         newUser.save()
         .then( () => {
-            let userToken = jwt.sign({newUser}, "This is just a text for JWT");
-            res.cookie("jwt-token", userToken, {httpOnly: true});
+            //let userToken = jwt.sign({newUser}, "This is just a text for JWT");
+            //res.cookie("jwt-token", userToken, {httpOnly: true});
             res.render('signin', {
                 error:"User has been added"
             })
@@ -35,11 +35,35 @@ const signUp = async (req, res) => {
     }
 }
 
-const LogIn = (req, resp) => {
-    
-}
+const LogIn = async (req, res) => {
+   //Check if the user is already in the DB 
+   let existedUser = await userModel.findOne({email: req.body.email});
+   
+   if(!existedUser) {
+    res.render('signin', {
+        error: "user is not exist. So signup first please!"
+    })
+    }else{
+    let isCorrectPass = bcrypt.compareSync(req.body.password, existedUser.password)
 
+    if(!isCorrectPass){
+     res.render('signin', {
+            error: "user password is not correct"
+        })  
+    }else{
+        let userToken = jwt.sign({existedUser}, "This is just a text for JWT");
+        res.cookie("userToken", userToken, {httpOnly: true});
+        res.redirect('/feed')
+    }
+    }
+   }
+
+const logOut = (req, res) => {
+    res.clearCookie('userToken');
+    res.redirect('/');
+}
 module.exports = {
     signUp,
-    LogIn
+    LogIn,
+    logOut
 }
