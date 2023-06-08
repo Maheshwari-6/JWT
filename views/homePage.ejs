@@ -4,10 +4,29 @@
 <body>
     <%- include('header') -%>
     <div class="container-div">
-      <form action="/logout" method="post">
-        <button>Logout</button>
-      </form>
-      <h2>Hello in our APP</h2>    
+      <% if(email) { %>
+      <h2>Hello in our APP: <%= email %></h2>
+      <% } %>   
+      <div class="posts">
+        <% posts.forEach(post => { %>
+          <div class="post-item">
+            <h3><%= post.title %></h3>
+            <p><%= post.desc %></p>
+            <h5>Added by: <%= post.owner.userName %></h5>
+            
+            <form>
+              <input type="text" placeholder="add acomment" />
+              <button>Add comment</button>
+            </form>
+            <% if(post.owner._id.toString() === userId.toString()) { %>
+            <div>
+              <button class="btn btn-light">Edit</button>
+              <button class="btn btn-light">Delete</button>
+            </div>
+            <% } %>
+          </div>
+        <% }) %>
+      </div> 
     </div>
 </body>
 </html>

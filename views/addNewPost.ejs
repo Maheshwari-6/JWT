@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('head') -%>
+<body>
+    <%- include('header') -%>
+    <div class="container-div">
+    <form action="/create-new-post/<%= userId %>" method="post">
+            <!-- <input type="hidden" name="id" value="<%= userId %>" /> -->
+            <label for="title">Title</label>
+            <input type="text" name="title" id="post-title" />
+            <br />
+
+            <label for="desc">Description</label>
+            <input type="textarea" name="desc" id="post-desc" />
+            <br />
+
+            <input type="submit" value="Add post">
+    </form>
+    </div>
+</body>
+</html>
+  
+    
+    
+  
+ 

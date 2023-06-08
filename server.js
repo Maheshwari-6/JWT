@@ -1,9 +1,10 @@
 const express = require('express');
 const route = require ('./config/route');
-
+const cookieParser = require('cookie-parser')
 require('dotenv').config();
 
 const app = express();
+app.use(cookieParser())
 
 //Set EJS as a view engine
 app.set('view engine', 'ejs');
